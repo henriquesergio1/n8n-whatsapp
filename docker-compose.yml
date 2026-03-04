@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  n8n:
+    build:
+      context: .
+      dockerfile: Dockerfile.n8n-playwright
+    container_name: n8n
+    environment:
+      - GENERIC_TIMEZONE=America/Sao_Paulo
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - screenshots:/data/screenshots
+    ports:
+      - "5678:5678"
+    restart: unless-stopped
+
+  db:
+    image: postgres:15
+    container_name: n8n_db
+    environment:
+      - POSTGRES_DB=n8n
+      - POSTGRES_USER=n8n
+      - POSTGRES_PASSWORD=senhaFort3
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  wwebjs-sender:
+    build:
+      context: ./wwebjs-sender
+      dockerfile: Dockerfile
+    container_name: wwebjs-sender
+    environment:
+      - TZ=America/Sao_Paulo
+    volumes:
+      - wwebjs_data:/session
+      - screenshots:/data/screenshots
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
+
+volumes:
+  n8n_data:
+  db_data:
+  wwebjs_data:
+  screenshots:
