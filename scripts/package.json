@@ -1,0 +1,9 @@
+{
+  "name": "n8n-playwright-runner",
+  "private": true,
+  "version": "1.0.0",
+  "type": "commonjs",
+  "dependencies": {
+    "playwright": "^1.45.0"
+  }
+}
