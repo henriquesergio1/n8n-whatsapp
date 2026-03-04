@@ -41,4 +41,3 @@ app.post('/send-image', async (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`📨 wwebjs-sender em :${PORT}`));
-``
